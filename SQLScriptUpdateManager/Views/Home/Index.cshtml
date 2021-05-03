@@ -1,0 +1,208 @@
+﻿@{
+    ViewData["Title"] = "Manager";
+}
+<head>
+    <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<script type="text/javascript">
+    $(function () {
+        $('#showUploadBrowser').click(function () {
+            var text = $('#urlOfSelectPath').text();
+            console.log(text);
+            $('#uploadButton').click();
+        });
+    });
+
+    $(function changeUrl ()
+    {
+        var text = $('#urlOfSelectPath').text;
+        $('#inputOfPath').attr("placeholder", text);
+    })
+
+</script>
+
+<div class="container my-5 py-5 border shadow-lg">
+    <div class="row px-md-3 m-2 p-2 border-bottom">
+        <div class="col-auto">
+            <i class="fa fa-folder fa-2x text-dark" aria-hidden="true"></i>
+        </div>
+        <div class="col-auto">
+            <h5>Zadej cestu ke složce se scripty</h5>
+        </div>
+    </div>
+    <div class="row px-md-3 m-2 p-2 text-center">
+        <div class="col-auto my-auto">
+            
+            <i class="fa fa-folder-open-o my-auto text-dark" id="showUploadBrowser" aria-hidden="true" style="cursor:pointer"></i>
+            
+            <div style="display:none">
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @enctype = "multipart/from-data" }))
+                {
+                    <input type="url" id="urlOfSelectPath" onchange="changeUrl()" />
+                    <input type="file" id="uploadButton" />
+                }
+            </div>
+        </div>
+        <div class="col-10">
+            <input class="form-control" type="text" id="inputOfPath" placeholder="Readonly input here…" readonly>
+        </div>
+        <div class="col-1 my-auto">
+            <i class="fa fa-link" aria-hidden="true"></i>
+        </div>
+    </div>
+    <br />
+        <div class="row px-md-3 m-2 p-2 border-bottom">
+            <div class="col-auto text-lg-left">
+                <i class="fa fa-database fa-2x" aria-hidden="true"></i>
+            </div>
+            <div class="col-md-10 text-lg-left">
+                <h5>DATABAZE K AKTUALIZACI</h5>
+            </div>
+            <!--<div class="col-1 text-lg-center my-auto">
+                <i class="fa fa-info" aria-hidden="true"></i>-->
+                @*OnHover tooltip s popiskem co to dělá a na co to je*@
+            <!--</div>-->
+        </div>
+    <br />
+    <table class="table border-bottom">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">PROD/DEV</th>
+                <th></th>
+                <th scope="col">TEST</th>
+                <th></th>
+                <th scope="col">VRF</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>BR_PROD_PostgreSQL</td>
+                <td><input class="form-check-input" type="checkbox" value="" id=""></td>
+                <td>BR_TEST_PostgreSQL</td>
+                <td><input class="form-check-input" type="checkbox" value="" id=""></td>
+                <td>BR_VRF_PostgreSQL</td>
+                <td><input class="form-check-input" type="checkbox" value="" id=""></td>
+            </tr>
+            <tr>
+                <td>BR2_VRF_PostgreSQL</td>
+                <td><input class="form-check-input" type="checkbox" value="" id=""></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>FR_PROD_PostgreSQL</td>
+                <td><input class="form-check-input" type="checkbox" value="" id=""></td>
+                <td>FR_TEST_PostgreSQL</td>
+                <td><input class="form-check-input" type="checkbox" value="" id=""></td>
+                <td>FR_VRF_PostgreSQL</td>
+                <td><input class="form-check-input" type="checkbox" value="" id=""></td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <section class="px-md-3 m-2 p-2">
+        <div class="row">
+            <div class="col-auto text-center my-auto">
+                <div class="form-group form-inline">
+                    <label for="exampleInputEmail1">Čísla scriptů / SQL :</label>
+                    <input type="email" class="form-control mx-lg-4" id="exampleInputEmail1" placeholder="15...">
+                </div>
+            </div>
+            <div class="col-auto text-center my-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label font-weight-bold" for="flexCheckDefault">
+                        Datum posledního zápisu
+                    </label>
+                </div>
+            </div>
+            <div class="col-auto text-center my-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                    <label class="form-check-label font-weight-bold" for="flexCheckDefault2">
+                        Čísla scriptů
+                    </label>
+                </div>
+            </div>
+            <div class="col-auto text-center my-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+                    <label class="form-check-label font-weight-bold" for="flexCheckDefault3">
+                        Použité scripty
+                    </label>
+                </div>
+            </div>
+            <div class="col-1 text-center my-2">
+                <button id="search-button" type="button" class="btn btn-secondary">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-md-3 m-2 p-2 border-bottom">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Název aplikace</th>
+                    <th>Skript</th>
+                    <th>Seřazení</th>
+                    <th>Stav</th>
+                    <th>Operace</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CZ_VRF_PostgreSQL</td>
+                    <td>13009. User\1_subject_operation_PGS_DLL146.sql</td>
+                    <td>Rozdílné</td>
+                    <td><i class="fa fa-circle text-warning mx-2" aria-hidden="true"></i> 25.7.2017</td>
+                    <td class="text-center">
+                        <input class="form-check-input text-info" type="checkbox" value="" id="">
+                        <i class="fa fa-times mx-1" aria-hidden="true"></i>
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td>CZ_VRF_PostgreSQL</td>
+                    <td>13009. User\1_subject_operation_PGS_DLL146.sql</td>
+                    <td>Rozdílné</td>
+                    <td><i class="fa fa-circle text-danger mx-2" aria-hidden="true"></i> 23.7.2017</td>
+                    <td class="text-center">
+                        <input class="form-check-input text-info" type="checkbox" value="" id="">
+                        <i class="fa fa-times mx-1" aria-hidden="true"></i>
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td>CZ_VRF_PostgreSQL</td>
+                    <td>13009. User\1_subject_operation_PGS_DLL146.sql</td>
+                    <td>Rozdílné</td>
+                    <td><i class="fa fa-circle text-secondary mx-2" aria-hidden="true"></i> 22.7.2017</td>
+                    <td class="text-center">
+                        <input class="form-check-input text-info" type="checkbox" value="" id="">
+                        <i class="fa fa-times mx-1" aria-hidden="true"></i>
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td>CZ_VRF_PostgreSQL</td>
+                    <td>13009. User\1_subject_operation_PGS_DLL146.sql</td>
+                    <td>Rozdílné</td>
+                    <td><i class="fa fa-circle text-success mx-2" aria-hidden="true"></i> 21.7.2017</td>
+                    <td class="text-center">
+                        <input class="form-check-input text-info" type="checkbox" value="" id="">
+                        <i class="fa fa-times mx-1" aria-hidden="true"></i>
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <br />
+</div>
